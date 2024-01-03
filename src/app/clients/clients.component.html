@@ -1,0 +1,40 @@
+<p *ngIf="response">{{ response }}</p>
+
+<ul *ngFor="let client1 of allClients">
+  <li>
+    {{ client1.id }} {{ client1.name }} {{ client1.address }}
+    {{ client1.phoneNumber }} {{ client1.createdAt }} {{ client1.updatedAt }}
+  </li>
+  <button *ngIf="client1.id" (click)="deleteClient(client1.id)">Delete</button>
+</ul>
+
+<form
+  (ngSubmit)="getClientById(getClientByIdForm.get('id')?.value)"
+  [formGroup]="getClientByIdForm"
+>
+  <p>Search client by id:</p>
+  <input type="number" formControlName="id" />
+  <input type="submit" />
+</form>
+<div *ngIf="clientDetail">
+  <p>Client detaila:</p>
+  <p>
+    {{
+      clientDetail.id +
+        " " +
+        clientDetail.email +
+        " " +
+        clientDetail.name +
+        " " +
+        clientDetail.address
+    }}
+  </p>
+</div>
+
+<form [formGroup]="addClientForm" (ngSubmit)="createClient()">
+  <input placeholder="Name" formControlName="name" />
+  <input placeholder="Address" formControlName="address" />
+  <input placeholder="Phone Number" formControlName="phoneNumber" />
+  <input placeholder="Email" formControlName="email" />
+  <input type="submit" />Save Client
+</form>

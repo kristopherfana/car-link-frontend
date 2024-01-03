@@ -1,0 +1,39 @@
+<p>Add your car</p>
+<form [formGroup]="carDto" (ngSubmit)="createCar()">
+  <input type="text" formControlName="model" placeholder="model" />
+  <input type="text" formControlName="regNumber" placeholder="regNumber" />
+  <input type="text" formControlName="make" placeholder="make" />
+  <input type="email" formControlName="clientEmail" placeholder="email" />
+  <input type="text" formControlName="color" placeholder="color" />
+  <input type="file" (change)="onFileSelected($event)" />
+  <button type="submit">Submit</button>
+</form>
+
+<div>
+  <p>Cars available</p>
+  <div *ngIf="allCars.length > 0">
+    <ul *ngFor="let car of allCars">
+      <li>
+        <p>
+          {{
+            car.id +
+              " " +
+              car.color +
+              " " +
+              car.make +
+              " " +
+              car.model +
+              " " +
+              car.regNumber +
+              " " +
+              car.client.email +
+              " " +
+              car.pictureFileName
+          }}
+        </p>
+        <img [src]="car.pictureFileName" alt="Car Image" />
+      </li>
+    </ul>
+  </div>
+  <p *ngIf="allCars.length === 0">There are no cars available</p>
+</div>
