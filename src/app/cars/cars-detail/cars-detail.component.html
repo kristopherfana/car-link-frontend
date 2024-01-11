@@ -1,0 +1,73 @@
+<div
+  class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-32 border border-black rounded-md"
+>
+  <div class="sm:mx-auto sm:w-full border rounded-md py-12 px-6 mt-20">
+    <div class="px-4 sm:px-0">
+      <h3 class="text-2xl font-semibold leading-7 text-gray-900">
+        Car's Information
+      </h3>
+      <p class="mt-1 max-w-2xl leading-6 text-gray-500">Car's details</p>
+    </div>
+    <div class="mt-6 border-t border-gray-100" *ngIf="car">
+      <dl class="divide-y divide-gray-100">
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">
+            Registration Number
+          </dt>
+          <dd
+            class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0 text-xl font-medium"
+          >
+            {{ car.regNumber }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Client</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.client.email }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Make</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.make.name }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Model</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.model.name }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Interior Color</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.interiorColor.name }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Exterior Color</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.exteriorColor.name }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Body</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.body.type }}<br />
+            Doors: {{ car.body.doors }}<br />
+            Seats:{{ car.body.seats }}
+          </dd>
+        </div>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+          <dt class="font-medium leading-6 text-gray-900">Engine</dt>
+          <dd class="mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            {{ car.engine.transmission }}<br />
+            Fuel type: {{ car.engine.fuel_type }}<br />
+            Cylinders: {{ car.engine.cylinders }}<br />
+            Horsepowers: {{ car.engine.horsepower_hp }}Hp<br />
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>

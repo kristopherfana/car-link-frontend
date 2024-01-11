@@ -1,0 +1,49 @@
+<hlm-dialog>
+  <button
+    id="edit-profile"
+    brnDialogTrigger
+    class="form-control"
+    (click)="$event.preventDefault()"
+    type="input"
+    [disabled]="buttonDisabled"
+    #itemButton
+  >
+    Choose {{ itemNameKey }}
+  </button>
+  <hlm-dialog-content
+    class="xl:max-w-[1400px] xl:min-w-[1200px]"
+    *brnDialogContent="let ctx"
+  >
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Choose {{ itemNameKey }}</h3>
+      <p hlmDialogDescription>
+        Make changes to your {{ itemNameKey }} here. Click save when you're
+        done.
+      </p>
+    </hlm-dialog-header>
+    <hlm-scroll-area
+      class="w-full min-w-max h-96 rounded-md border border-border"
+    >
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 p-4">
+        <div *ngFor="let entity of entityList">
+          <input
+            type="radio"
+            [id]="entity.id"
+            [name]="entityName + 'Id'"
+            [formControlName]="entityName + 'Id'"
+            [value]="entity.id"
+            (change)="updateValue(itemButton, entity, entityName)"
+          />
+          <label class="option-label form-control" [for]="entity.id">
+            <ng-container
+              *ngTemplateOutlet="labelTemplate; context: { $implicit: entity }"
+            ></ng-container>
+          </label>
+        </div>
+      </div>
+    </hlm-scroll-area>
+    <hlm-dialog-footer>
+      <button hlmBtn type="button" (click)="ctx.close()">Save changes</button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>

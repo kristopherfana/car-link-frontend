@@ -1,0 +1,148 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-4xl mt-20">
+    <img
+      class="h-10 w-auto"
+      src="assets/images/logo_indigo.png"
+      alt="Your Company"
+    />
+    <h2
+      class="mt-10 text-5xl font-semibold leading-9 tracking-tight text-gray-900"
+    >
+      Sign in to CarLink.
+    </h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-4xl">
+    <form [formGroup]="addClientForm" (ngSubmit)="createClient()">
+      <div class="space-y-12">
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="text-lg font-semibold leading-7 text-gray-900">
+            Personal Information
+          </h2>
+          <p class="mt-1 text-base leading-6 text-gray-600">
+            Use a permanent address where you can receive mail.
+          </p>
+
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-full">
+              <label for="email" class="label">Email address</label>
+              <div class="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Email address"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="last-name" class="label">Full name</label>
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  autocomplete="name"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Full name"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="last-name" class="label">Phone Number</label>
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  autocomplete="name"
+                  class="form-control"
+                  placeholder="Phone Number"
+                  formControlName="phoneNumber"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2 sm:col-start-1">
+              <label for="country" class="label">Country</label>
+              <div class="mt-2">
+                <input
+                  id="country"
+                  name="country"
+                  placeholder="Country"
+                  autocomplete="country-name"
+                  class="form-control"
+                  formControlName="country"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="city" class="label">City</label>
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  placeholder="City"
+                  autocomplete="address-level2"
+                  class="form-control"
+                  formControlName="city"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="region" class="label">Street address</label>
+              <div class="mt-2">
+                <input
+                  type="text"
+                  name="region"
+                  id="region"
+                  autocomplete="address-level1"
+                  placeholder="Street address"
+                  class="form-control"
+                  formControlName="streetAddress"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-full">
+              <label for="country" class="label">About</label>
+              <div class="mt-2">
+                <textarea
+                  id="country"
+                  name="country"
+                  autocomplete="country-name"
+                  placeholder="Tell us about yourself..."
+                  class="form-control"
+                  rows="4"
+                  formControlName="about"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-4">
+        <button
+          type="reset"
+          class="text-lg font-semibold leading-6 text-gray-900 px-10"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="rounded-md bg-accent px-10 py-2 text-lg font-semibold text-white shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+          [disabled]="addClientForm.invalid"
+        >
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

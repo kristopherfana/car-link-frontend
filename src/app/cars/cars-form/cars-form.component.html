@@ -1,0 +1,236 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-4xl mt-20">
+    <img
+      class="h-10 w-auto"
+      src="assets/images/logo_indigo.png"
+      alt="Your Company"
+    />
+    <h2
+      class="mt-10 text-5xl font-semibold leading-9 tracking-tight text-gray-900"
+    >
+      Sign in to CarLink.
+    </h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-4xl">
+    <form [formGroup]="createCarForm" (ngSubmit)="createCar()">
+      <div class="space-y-12">
+        <div class="border-b border-gray-900/10 pb-12">
+          <h2 class="text-xl font-semibold leading-7 text-gray-900">
+            Car information
+          </h2>
+          <p class="mt-1 text-lg leading-6 text-gray-600 mb-5">
+            Use a permanent address where you can receive mail.
+          </p>
+
+          <app-alert
+            *ngIf="responseMessage?.message"
+            [variant]="responseMessage?.type"
+          >
+            <h4 *alertTitle>{{ responseMessage?.message }}</h4>
+          </app-alert>
+          <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="first-name" class="label">Registration number</label>
+              <div class="mt-2">
+                <input
+                  formControlName="regNumber"
+                  placeholder="Registration Number"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="last-name" class="label">Email</label>
+              <div class="mt-2">
+                <select
+                  hlmMenuItem
+                  formControlName="clientEmail"
+                  placeholder="email"
+                  class="form-control"
+                >
+                  <option *ngFor="let client of clients" [value]="client.email">
+                    {{ client.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sm:col-span-4">
+              <label for="email" class="label">Make</label>
+              <div class="mt-2">
+                <select
+                  formControlName="makeId"
+                  placeholder="make"
+                  class="form-control"
+                >
+                  <option *ngFor="let make of makes" [value]="make.id">
+                    {{ make.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="country" class="label">Model</label>
+              <div class="mt-2">
+                <select
+                  formControlName="modelId"
+                  placeholder="model"
+                  class="form-control"
+                >
+                  <option disabled *ngIf="models.length == 0">
+                    No models available
+                  </option>
+                  <option *ngFor="let model of models" [value]="model.id">
+                    {{ model.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-span-full">
+              <label for="street-address" class="label">Interior color</label>
+              <div class="mt-2">
+                <app-form-dialog
+                  [entityList]="interiorColors"
+                  entityName="interiorColor"
+                  itemNameKey="Interior Color"
+                  [buttonDisabled]="
+                    this.createCarForm.get('interiorColorId')?.disabled
+                  "
+                >
+                  <ng-container *appLabel="let interiorColor">
+                    <div class="w-fit flex items-center space-x-4">
+                      <div
+                        class="h-14 w-14 rounded-full"
+                        [style]="
+                          'background-color: rgb(' + interiorColor.rgb + ')'
+                        "
+                      ></div>
+                      <div class="space-y-1">
+                        <p
+                          class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]"
+                        >
+                          {{ interiorColor.name }}
+                        </p>
+                        <p class="font-normal w-max-[200px] text-zinc-500">
+                          RGB({{ interiorColor.rgb }})
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </app-form-dialog>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="region" class="label">Exterior Color</label>
+              <div class="mt-2">
+                <app-form-dialog
+                  [entityList]="exteriorColors"
+                  entityName="exteriorColor"
+                  itemNameKey="Exterior Color"
+                  [buttonDisabled]="
+                    this.createCarForm.get('exteriorColorId')?.disabled
+                  "
+                >
+                  <ng-container *appLabel="let exteriorColor">
+                    <div class="w-fit flex items-center space-x-4">
+                      <div
+                        class="h-14 w-14 rounded-full"
+                        [style]="
+                          'background-color: rgb(' + exteriorColor.rgb + ')'
+                        "
+                      ></div>
+                      <div class="space-y-1">
+                        <p
+                          class="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]"
+                        >
+                          {{ exteriorColor.name }}
+                        </p>
+                        <p class="font-normal w-max-[200px] text-zinc-500">
+                          RGB({{ exteriorColor.rgb }})
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </app-form-dialog>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="region" class="label">Engine</label>
+              <div class="mt-2">
+                <app-form-dialog
+                  [entityList]="engines"
+                  entityName="engine"
+                  itemNameKey="Engine"
+                  [buttonDisabled]="
+                    this.createCarForm.get('engineId')?.disabled
+                  "
+                >
+                  <ng-container *appLabel="let engine">
+                    <h4 class="text-xl">{{ engine.transmission }}</h4>
+                    <p class="font-normal">
+                      engine type: {{ engine.engine_type }}<br />
+                      Fuel type: {{ engine.fuel_type }}<br />
+                      Cylinders: {{ engine.cylinders }}<br />
+                      Horsepower: {{ engine.horsepower_hp }}HP<br />
+                    </p>
+                  </ng-container>
+                </app-form-dialog>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="postal-code" class="label">Body</label>
+              <div class="mt-2">
+                <app-form-dialog
+                  [entityList]="bodies"
+                  entityName="body"
+                  itemNameKey="Body"
+                  [buttonDisabled]="this.createCarForm.get('bodyId')?.disabled"
+                >
+                  <ng-container *appLabel="let body">
+                    <h4 class="text-xl">{{ body.type }}</h4>
+                    <p class="font-normal">
+                      Doors: {{ body.doors }}<br />
+                      Seats: {{ body.seats }}<br />
+                    </p>
+                  </ng-container>
+                </app-form-dialog>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="postal-code" class="label">Car Picture</label>
+              <input
+                type="file"
+                (change)="onFileSelected($event)"
+                hlmInput
+                class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-end gap-x-4">
+        <button
+          type="reset"
+          class="text-lg font-semibold leading-6 text-gray-900 px-10"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="rounded-md bg-accent px-10 py-2 text-lg font-semibold text-white shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+          [disabled]="createCarForm.invalid"
+        >
+          Link my car
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ClientsService } from '../clients/services/clients.service';
 import { Client, ClientForm } from './model/client';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -9,51 +10,25 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
-  allClients: Client[] = [];
+  allClients!: Client[];
   response!: String;
   clientForm!: ClientForm;
   clientDetail!: Client;
+  @ViewChildren('secondButton') components!: QueryList<ElementRef>;
 
   constructor(private clientService: ClientsService) { }
 
   ngOnInit(): void {
     this.getAllClients();
+
   }
-
-  addClientForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-  });
-
 
   getClientByIdForm = new FormGroup({
     id: new FormControl('', [Validators.required]),
   });
 
-  createClient() {
-    this.clientForm = new ClientForm(this.addClientForm.value);
-    this.clientService.createClient(this.clientForm).subscribe(
-      {
-        next: (data) => {
-          this.response = "User created successfully!";
-          this.getClientById(data.id);
-          this.getAllClients();
-        },
-        error: (error) => {
-          this.response = error.error.text;
-        }
-      }
-    )
-  }
-
   getAllClients() {
-    this.clientService.getAllClient().subscribe(
-      (data) => {
-        this.allClients = data
-      }
-    );
+    this.clientService.getAllClient().subscribe((response) => this.allClients = response);
   }
 
   getClientById(id: any) {
@@ -70,14 +45,21 @@ export class ClientsComponent implements OnInit {
   }
 
   deleteClient(id: number) {
-    this.clientService.deleteClient(id).subscribe(
-      (response) => {
+    this.clientService.deleteClient(id).subscribe({
+      next: (response) => {
         this.response = response;
         this.getAllClients();
       }
+    }
     )
   }
 
-
+  firstButtonClicked(id: number) {
+    this.components.forEach((button: ElementRef) => {
+      if (button.nativeElement.name == id) {
+        button.nativeElement.click();
+      }
+    });
+  }
 
 }

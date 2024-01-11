@@ -1,0 +1,5 @@
+button:disabled,
+button[disabled] {
+  @apply bg-zinc-300;
+  cursor: not-allowed;
+}

@@ -4,11 +4,14 @@ export class Client {
     id!: number;
     email!: string;
     name!: string;
-    address!: string;
+    streetAddress!: string;
+    city!: string;
+    country!: string;
     phoneNumber!: string;
     createdAt!: number;
     updatedAt!: number;
     cars!: Car[];
+    about!: string;
 
     constructor(init?: Partial<Client>) {
         Object.assign(this, init);

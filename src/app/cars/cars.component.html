@@ -1,39 +1,87 @@
-<p>Add your car</p>
-<form [formGroup]="carDto" (ngSubmit)="createCar()">
-  <input type="text" formControlName="model" placeholder="model" />
-  <input type="text" formControlName="regNumber" placeholder="regNumber" />
-  <input type="text" formControlName="make" placeholder="make" />
-  <input type="email" formControlName="clientEmail" placeholder="email" />
-  <input type="text" formControlName="color" placeholder="color" />
-  <input type="file" (change)="onFileSelected($event)" />
-  <button type="submit">Submit</button>
-</form>
+<div
+  class="flex min-h-full flex-col px-6 py-12 lg:px-8 border border-black rounded-md"
+>
+  <div class="border rounded-md py-12 px-6 mt-20">
+    <div class="sm:mx-auto sm:w-full">
+      <h2 class="text-5xl font-semibold leading-9 tracking-tight text-gray-900">
+        Cars
+      </h2>
+    </div>
 
-<div>
-  <p>Cars available</p>
-  <div *ngIf="allCars.length > 0">
-    <ul *ngFor="let car of allCars">
-      <li>
-        <p>
-          {{
-            car.id +
-              " " +
-              car.color +
-              " " +
-              car.make +
-              " " +
-              car.model +
-              " " +
-              car.regNumber +
-              " " +
-              car.client.email +
-              " " +
-              car.pictureFileName
-          }}
-        </p>
-        <img [src]="car.pictureFileName" alt="Car Image" />
-      </li>
-    </ul>
+    <div class="mt-10 sm:mx-auto sm:w-full">
+      <hlm-table class="w-full min-w-[400px] text-xl border rounded-md">
+        <hlm-trow>
+          <hlm-th class="w-[7%]">Car</hlm-th>
+          <hlm-th class="w-[10%] font-medium">Registration number</hlm-th>
+          <hlm-th class="w-1/6">Client</hlm-th>
+          <hlm-th class="w-1/6">Make</hlm-th>
+          <hlm-th class="w-[15%]">Model</hlm-th>
+          <hlm-th class="w-[10%]">Body</hlm-th>
+          <hlm-th class="flex-1">Engine</hlm-th>
+          <hlm-th class="justify-end"></hlm-th>
+        </hlm-trow>
+        @for (car of allCars; track car.id) {
+        <hlm-trow>
+          <hlm-td truncate class="w-[7%]"
+            ><div
+              class="h-14 w-14 rounded-full bg-zinc-400 text-white text-lg justify-center items-center flex bg-cover bg-center"
+              [style.backgroundImage]="
+                'url(assets/CarPictures/' + car.pictureFileName + ')'
+              "
+            ></div
+          ></hlm-td>
+          <hlm-td truncate class="w-[10%] font-medium text-xl">{{
+            car.regNumber
+          }}</hlm-td>
+          <hlm-td class="w-1/6">{{ car.client.email }}</hlm-td>
+          <hlm-td class="w-1/6">{{ car.make.name }}</hlm-td>
+          <hlm-td class="w-[15%]">{{ car.model.name }}</hlm-td>
+          <hlm-td class="w-[10%]">{{ car.body.type }}</hlm-td>
+          <hlm-td class="flex-1">{{ car.engine.transmission }}</hlm-td>
+          <hlm-td class="justify-end">
+            <button
+              hlmBtn
+              variant="ghost"
+              class="h-6 w-6 p-0.5"
+              align="end"
+              [brnMenuTriggerFor]="menu"
+            >
+              <hlm-icon name="radixDotsHorizontal" size="xl" />
+            </button>
+          </hlm-td>
+          <ng-template #menu>
+            <hlm-menu class="text-lg">
+              <hlm-menu-label>Actions</hlm-menu-label>
+              <hlm-menu-separator />
+              <hlm-menu-group>
+                <button
+                  class="menu-item"
+                  (click)="deleteCar(car.id)"
+                  hlmMenuItem
+                >
+                  Delete car
+                </button>
+              </hlm-menu-group>
+              <hlm-menu-separator />
+              <hlm-menu-group>
+                <a
+                  class="menu-item"
+                  [routerLink]="['/cars', car.id]"
+                  hlmMenuItem
+                  >View car's details</a
+                >
+                <a
+                  class="menu-item"
+                  [routerLink]="['/clients', car.client.id]"
+                  hlmMenuItem
+                  >View client's details</a
+                >
+              </hlm-menu-group>
+            </hlm-menu>
+          </ng-template>
+        </hlm-trow>
+        }
+      </hlm-table>
+    </div>
   </div>
-  <p *ngIf="allCars.length === 0">There are no cars available</p>
 </div>

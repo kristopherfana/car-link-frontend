@@ -1,0 +1,16 @@
+input[type="radio"]:checked + .option-label {
+  @apply font-medium border-2 border-accent;
+}
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+input[type="radio"] + .option-label {
+  @apply px-5;
+}
+
+button:disabled,
+button[disabled] {
+  @apply bg-zinc-300;
+  cursor: not-allowed;
+}

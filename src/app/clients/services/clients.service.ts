@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, retry, throwError } from 'rxjs';
+import { Car } from 'src/app/cars/model/car';
 import { Client, ClientForm } from 'src/app/clients/model/client';
 
 @Injectable({
@@ -62,6 +63,15 @@ export class ClientsService {
       this.API_URL + `/${id}`,
       { ...this.httpOptions, responseType: 'text' as 'json' }
     ).pipe();
+  }
+
+  getCarsByClient(id: number): Observable<Car[]> {
+    return this.httpClient.get<Car[]>(
+      this.API_URL + `/${id}/cars`,
+      this.httpOptions
+    ).pipe(
+      catchError(this.handleError)
+    )
   }
 
 

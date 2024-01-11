@@ -1,0 +1,15 @@
+.nav-link {
+  @apply font-semibold leading-6 text-gray-900 inline-flex justify-center gap-x-0.5 items-end;
+}
+
+.nav-link .active {
+  @apply underline;
+}
+
+.container {
+  @apply mx-auto max-w-7xl px-2 sm:px-6 lg:px-8;
+}
+
+.active {
+  @apply underline underline-offset-4;
+}
